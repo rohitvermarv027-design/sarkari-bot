@@ -1,0 +1,51 @@
+name: Sarkari Alert Bots
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"   # Priority bot: har ~20 min
+    - cron: "0 */3 * * *"    # Normal bot: har 3 ghante
+  workflow_dispatch:
+    inputs:
+      bot:
+        description: "priority ya normal"
+        default: "priority"
+      test:
+        description: "Sirf test message bhejna hai?"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: state-push
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Run bot
+        env:
+          TG_TOKEN_PRIORITY: ${{ secrets.TG_TOKEN_PRIORITY }}
+          TG_TOKEN_NORMAL: ${{ secrets.TG_TOKEN_NORMAL }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: |
+          BOT="${{ github.event.inputs.bot }}"
+          if [ "${{ github.event.schedule }}" = "0 */3 * * *" ]; then BOT=normal; fi
+          if [ -z "$BOT" ]; then BOT=priority; fi
+          FLAG=""
+          if [ "${{ github.event.inputs.test }}" = "true" ]; then FLAG="--test"; fi
+          python monitor.py "$BOT" $FLAG
+      - name: Save state
+        run: |
+          git config user.name "alert-bot"
+          git config user.email "alert-bot@users.noreply.github.com"
+          git add state_*.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "update state" && git pull --rebase && git push)
