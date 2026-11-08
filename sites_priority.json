@@ -1,0 +1,19 @@
+[
+  {"name": "SSC", "url": "https://ssc.gov.in/"},
+  {"name": "UPSC", "url": "https://upsc.gov.in/"},
+  {"name": "MPSC", "url": "https://mpsc.gov.in/"},
+  {"name": "RRB Apply", "url": "https://www.rrbapply.gov.in/"},
+  {"name": "IBPS", "url": "https://www.ibps.in/"},
+  {"name": "NTA", "url": "https://nta.ac.in/"},
+  {"name": "JEE Main", "url": "https://jeemain.nta.nic.in/"},
+  {"name": "NEET UG", "url": "https://neet.nta.nic.in/"},
+  {"name": "CUET UG", "url": "https://cuet.nta.nic.in/"},
+  {"name": "MHT CET", "url": "https://cetcell.mahacet.org/"},
+  {"name": "JEE Advanced", "url": "https://jeeadv.ac.in/"},
+  {"name": "Maharashtra Police", "url": "https://www.mahapolice.gov.in/"},
+  {"name": "Indian Army", "url": "https://joinindianarmy.nic.in/"},
+  {"name": "Indian Navy", "url": "https://www.joinindiannavy.gov.in/"},
+  {"name": "Agniveer Vayu", "url": "https://agnipathvayu.cdac.in/"},
+  {"name": "MCC (NEET Counselling)", "url": "https://mcc.nic.in/"},
+  {"name": "JoSAA (JEE Counselling)", "url": "https://josaa.nic.in/"}
+]
